@@ -1,23 +1,60 @@
 import React, { Component, JSX } from 'react';
-import './MovieItem.scss';
+import { Image } from 'antd';
+import { format } from 'date-fns';
 
-export default class MovieItem extends Component {
+import './MovieItem.scss';
+import { IProps } from './type';
+
+export default class MovieItem extends Component<IProps> {
+  checkImageUrl(url: string): string {
+    if (url) {
+      return 'https://image.tmdb.org/t/p/original/' + url;
+    }
+    return 'https://i.ibb.co/XDzV9Wy/noimage.jpg';
+  }
+
+  croppingText(value: string, charactersLength: number): string {
+    if (!value) return '';
+    if (value.length <= charactersLength) return value;
+
+    let countLength = 0;
+    const newArr = [];
+    const valueSplit = value.split(' ');
+    for (let i = 0; i < valueSplit.length; i++) {
+      const el = valueSplit[i];
+      if (countLength < charactersLength) {
+        countLength += el.length;
+        newArr.push(el);
+      }
+    }
+    return newArr.join(' ') + '...';
+  }
+
+  formattingDate(date: string): string {
+    if (!date) return '';
+    const newArr: number[] = date.split('-').map((el) => Number(el));
+    const year = newArr[0];
+    const month = newArr[1];
+    const day = newArr[1];
+    return format(new Date(year, month, day), 'PP');
+  }
+
   render(): JSX.Element {
     const parentClassName = 'movie';
+    const { srcImg, name, overview, releaseDate } = this.props;
     return (
       <li className={parentClassName}>
-        <img src="https://i.ibb.co/zZyJxNM/Rectangle-36.jpg" alt="The way back" width={183} height={281} />
+        <div className={parentClassName + '__img'}>
+          <Image src={this.checkImageUrl(srcImg)} alt={name} width="inherit" height="inherit" />
+        </div>
         <div className={parentClassName + '__right'}>
-          <h3 className={parentClassName + '__name'}>The way back</h3>
-          <p className={parentClassName + '__date'}>March 5, 2020 </p>
+          <h3 className={parentClassName + '__name'}>{name}</h3>
+          <p className={parentClassName + '__date'}>{this.formattingDate(releaseDate)}</p>
           <ul className={parentClassName + '__genres-list genres-list'}>
             <li className="genres-list__item">Action</li>
             <li className="genres-list__item">Drama</li>
           </ul>
-          <p className={parentClassName + '__description'}>
-            A former basketball all-star, who has lost his wife and family foundation in a struggle with addiction
-            attempts to regain his soul and salvation by becoming the coach of a disparate ethnically mixed high ...
-          </p>
+          <p className={parentClassName + '__description'}>{this.croppingText(overview, 180)}</p>
         </div>
       </li>
     );
