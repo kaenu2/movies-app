@@ -1,5 +1,5 @@
-import React from 'react';
+import React, { JSX } from 'react';
 
 export interface IProps {
-  children?: React.ReactNode;
+  children?: JSX.Element | JSX.Element[] | React.ReactNode;
 }

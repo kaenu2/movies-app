@@ -13,15 +13,14 @@ export default class App extends Component<unknown, IState> {
     super(props);
     this.state = {
       isError: false,
-      isLoading: false,
+      isLoading: true,
       items: [],
+      compound: true,
     };
   }
 
   componentDidMount(): void {
-    this.setState({
-      isLoading: true,
-    });
+    this.setState({ isLoading: true });
     this.movieService
       .getMoveList('return', 1)
       .then((data): void => {
@@ -30,15 +29,23 @@ export default class App extends Component<unknown, IState> {
           items: data.results,
         });
       })
-      .catch((): void => this.setState({ isError: true, isLoading: true }));
+      .catch((): void => this.setState({ isError: true, isLoading: false }));
+  }
+
+  onCheckNetwork(value: boolean): void {
+    this.setState({
+      compound: value,
+    });
   }
 
   render(): JSX.Element {
-    const { isLoading, isError, items } = this.state;
-
+    const { isLoading, isError, items, compound } = this.state;
     return (
       <div className="app">
-        <Container>{isLoading ? <h1>Загрузка...</h1> : <MovieList movies={items} isError={isError} />}</Container>
+        {!compound && <h1>Нет интернета!</h1>}
+        <Container>
+          <MovieList isLoading={isLoading} movies={items} isError={isError} />
+        </Container>
       </div>
     );
   }

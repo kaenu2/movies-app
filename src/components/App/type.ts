@@ -4,4 +4,5 @@ export interface IState {
   isError: boolean;
   isLoading: boolean;
   items: [] | IMovies[];
+  compound: boolean;
 }
