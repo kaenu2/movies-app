@@ -2,4 +2,15 @@
   & > .container {
     background-color: #ffffff;
   }
+  & .pagination{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    & .ant-pagination-options {
+      display: none;
+    }
+  }
+  & .search{
+    margin-bottom: 35px;
+  }
 }

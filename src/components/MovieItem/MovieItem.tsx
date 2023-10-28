@@ -1,8 +1,12 @@
 import React, { Component, JSX } from 'react';
-import { Image } from 'antd';
+import { Flex, Image, Rate } from 'antd';
 import { format } from 'date-fns';
 
 import './MovieItem.scss';
+import { AverRating } from '../index';
+import { Consumer } from '../Context/Context';
+import { IGenre } from '../../services/type';
+
 import { IProps } from './type';
 
 export default class MovieItem extends Component<IProps> {
@@ -39,23 +43,44 @@ export default class MovieItem extends Component<IProps> {
     return format(new Date(year, month, day), 'PP');
   }
 
+  onCreateGenreItem(id: number, genreList: IGenre[]): IGenre {
+    return genreList.filter((genre) => genre.id === id)[0];
+  }
+
   render(): JSX.Element {
-    const parentClassName = 'movie';
-    const { srcImg, name, overview, releaseDate } = this.props;
+    const { srcImg, name, overview, releaseDate, popularity, id, onAddRating, rating, genreList } = this.props;
     return (
-      <li className={parentClassName}>
-        <div className={parentClassName + '__img'}>
+      <li className="movie">
+        <div className="movie__img">
           <Image src={this.checkImageUrl(srcImg)} alt={name} width="inherit" height="inherit" />
         </div>
-        <div className={parentClassName + '__right'}>
-          <h3 className={parentClassName + '__name'}>{name}</h3>
-          <p className={parentClassName + '__date'}>{this.formattingDate(releaseDate)}</p>
-          <ul className={parentClassName + '__genres-list genres-list'}>
-            <li className="genres-list__item">Action</li>
-            <li className="genres-list__item">Drama</li>
-          </ul>
-          <p className={parentClassName + '__description'}>{this.croppingText(overview, 180)}</p>
-        </div>
+        <Flex justify="space-between" gap="middle" className="movie__top">
+          <h3 className="movie__name">{name}</h3>
+          <AverRating popularity={popularity} />
+        </Flex>
+        <p className="movie__date">{this.formattingDate(releaseDate)}</p>
+        <Flex component={'ul'} gap="middle" wrap="wrap" className="movie__genres genres">
+          <Consumer>
+            {(value) => {
+              return genreList.map((genre) => {
+                return (
+                  <li key={genre} className="genres__item">
+                    {this.onCreateGenreItem(genre, value).name}
+                  </li>
+                );
+              });
+            }}
+          </Consumer>
+        </Flex>
+        <p className="movie__descr">{this.croppingText(overview, 180)}</p>
+        <Rate
+          defaultValue={rating}
+          count={10}
+          allowHalf
+          allowClear={false}
+          onChange={(count) => onAddRating(id, count)}
+          className="movie__rate"
+        />
       </li>
     );
   }

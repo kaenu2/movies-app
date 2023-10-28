@@ -1,7 +1,9 @@
 import { IMovies, IRatedMovie } from '../../types/types';
 
 export interface IProps {
-  movies: IMovies[];
+  items: [] | IRatedMovie[];
   onAddRating: (id: number, value: number) => void;
-  ratedItems: IRatedMovie[] | [];
+  isLoading: boolean;
+  isError: boolean;
 }
+export interface IState {}

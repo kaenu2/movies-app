@@ -14,3 +14,7 @@ export interface IMovies {
   vote_average: number;
   vote_count: number;
 }
+
+export interface IRatedMovie extends IMovies {
+  rating: number;
+}

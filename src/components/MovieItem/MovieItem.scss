@@ -1,37 +1,77 @@
 .movie {
-  display: flex;
+  display: grid;
   background-color: #ffffff;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
-  min-height: 279px;
-  &__right {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 8px;
+  grid-template-columns: 183px 1fr;
+  column-gap: 15px;
+  grid-template-areas:
+          'img top top'
+          'img date date'
+          'img genres genres'
+          'img descr descr'
+          'img rate rate';
+  @media (max-width: 600px) {
+    grid-template-columns: 60px repeat(2, 1fr);
+    grid-template-rows:  auto;
+    padding: 6px 10px;
+    grid-template-areas:
+          'img top top'
+          'img date date'
+          'img genres genres'
+          'descr descr descr'
+          'rate rate rate';
   }
   &__img {
+    grid-row: 1/ -1;
     width: 183px;
     height: 100%;
+    @media (max-width: 600px) {
+      width: 60px;
+      grid-row: 1/ 4;
+    }
+  }
+  &__top{
+    grid-area: top;
+    grid-row: auto;
+    padding: 12px 9px 0 0;
+  }
+  &__date{
+    grid-area: date;
+    padding-right: 10px;
+    margin-bottom: 10px;
+  }
+  &__genres{
+    grid-area: genres;
+    padding-right: 10px;
+    margin-bottom: 10px;
+  }
+  &__descr{
+    grid-area: descr;
+    padding-right: 10px;
+    margin-bottom: 10px;
+  }
+  &__rate{
+    grid-area: rate;
+    padding-right: 10px;
+    padding-bottom: 12px;
   }
   &__name {
     font-size: 20px;
     line-height: 140%;
-  }
-  &__date {
-  }
-  &__genres-list {
-    display: flex;
-    gap: 8px;
-  }
-  &__description {
+    flex: 0 1 75%;
   }
 }
-.genres-list {
+
+.genres {
   &__item {
-    padding: 3px 5px;
+    padding: 0 5px;
     border-radius: 2px;
     border: 1px solid #d9d9d9;
     background: #fafafa;
     cursor: default;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

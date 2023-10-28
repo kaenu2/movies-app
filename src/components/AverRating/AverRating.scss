@@ -1,0 +1,9 @@
+.aver-rating {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #E9D100;
+  &__value {
+    line-height: 183.333%;
+  }
+}
