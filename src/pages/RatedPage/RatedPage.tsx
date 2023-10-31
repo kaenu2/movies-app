@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Alert } from 'antd';
 
-import { AlertError, Loading, MovieList } from '../../components';
+import { AlertError, Loading, MovieList, PaginationParent } from '../../components';
 
 import { IProps, IState } from './type';
 
 export default class RatedPage extends Component<IProps, IState> {
   render() {
-    const { onAddRating, items, isError, isLoading } = this.props;
+    const { onAddRating, items, isError, isLoading, totalPages, totalResults, countPage, onCountPage, ratedItems } =
+      this.props;
 
     const loadingRender = isLoading ? <Loading /> : null;
     const errorRender = isError ? (
@@ -19,7 +20,13 @@ export default class RatedPage extends Component<IProps, IState> {
       ) : null;
     const contentRender = !(isLoading || isError) ? (
       <>
-        <MovieList movies={items} onAddRating={onAddRating} ratedItems={items} />
+        <MovieList movies={items} onAddRating={onAddRating} ratedItems={ratedItems} />
+        <PaginationParent
+          countPage={countPage}
+          onCountPage={onCountPage}
+          totalPages={totalPages}
+          totalResults={totalResults}
+        />
       </>
     ) : null;
 

@@ -5,7 +5,7 @@ import { IProps } from './type';
 
 export default class PaginationParent extends Component<IProps> {
   render(): JSX.Element {
-    const { countPage, onCountPage, totalPages, totalResults } = this.props;
+    const { countPage, onCountPage, totalResults } = this.props;
     return (
       <ConfigProvider
         theme={{
@@ -18,7 +18,7 @@ export default class PaginationParent extends Component<IProps> {
             <Pagination
               onChange={(page) => onCountPage(page)}
               defaultCurrent={countPage}
-              total={totalPages}
+              total={totalResults}
               defaultPageSize={20}
             />
           </div>

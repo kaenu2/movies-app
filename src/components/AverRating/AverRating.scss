@@ -2,8 +2,25 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid #E9D100;
+  border: 2px solid transparent;
+  &__container{
+    width: 100%;
+    height: 100%;
+  }
   &__value {
     line-height: 183.333%;
   }
+}
+
+.red {
+  border-color: #E90000;
+}
+.orange {
+  border-color: #E97E00;
+}
+.green {
+  border-color: #E9D100;
+}
+.yellow {
+  border-color: #66E900;
 }

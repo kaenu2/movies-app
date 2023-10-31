@@ -1,4 +1,5 @@
-import { IMovies, IRatedMovie } from '../../types/types';
+import { IMovies } from '../../types/types';
+import { IRatedItem } from '../../components/App/type';
 
 export interface IProps {
   isLoading: boolean;
@@ -11,5 +12,5 @@ export interface IProps {
   onSearchValue: (value: string) => void;
   totalResults: number;
   onAddRating: (id: number, value: number) => void;
-  ratedItems: [] | IRatedMovie[];
+  ratedItems: IRatedItem[] | [];
 }

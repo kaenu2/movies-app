@@ -14,6 +14,15 @@ export interface IState {
 
   isLoadingRated: boolean;
   isErrorRated: boolean;
+  totalPagesRated: number;
+  countPageRated: number;
+  totalResultsRated: number;
+  allRatedList: [] | IRatedItem[];
 
   genres: [] | IGenre[];
+}
+
+export interface IRatedItem {
+  id: number;
+  value: number;
 }

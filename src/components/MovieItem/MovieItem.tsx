@@ -18,7 +18,7 @@ export default class MovieItem extends Component<IProps> {
   }
 
   croppingText(value: string, charactersLength: number): string {
-    if (!value) return '';
+    if (!value) return 'No description';
     if (value.length <= charactersLength) return value;
 
     let countLength = 0;
@@ -35,7 +35,7 @@ export default class MovieItem extends Component<IProps> {
   }
 
   formattingDate(date: string): string {
-    if (!date) return '';
+    if (!date) return 'Date unknown';
     const newArr: number[] = date.split('-').map((el) => Number(el));
     const year = newArr[0];
     const month = newArr[1];
@@ -59,20 +59,25 @@ export default class MovieItem extends Component<IProps> {
           <AverRating popularity={popularity} />
         </Flex>
         <p className="movie__date">{this.formattingDate(releaseDate)}</p>
-        <Flex component={'ul'} gap="middle" wrap="wrap" className="movie__genres genres">
-          <Consumer>
-            {(value) => {
-              return genreList.map((genre) => {
-                return (
-                  <li key={genre} className="genres__item">
-                    {this.onCreateGenreItem(genre, value).name}
-                  </li>
-                );
-              });
-            }}
-          </Consumer>
-        </Flex>
-        <p className="movie__descr">{this.croppingText(overview, 180)}</p>
+        {
+          <Flex component={'ul'} wrap="wrap" className="movie__genres genres">
+            <Consumer>
+              {(value) => {
+                if (!genreList.length) {
+                  return <li className="genres__item">no genre</li>;
+                }
+                return genreList.map((genre) => {
+                  return (
+                    <li key={genre} className="genres__item">
+                      {this.onCreateGenreItem(genre, value).name}
+                    </li>
+                  );
+                });
+              }}
+            </Consumer>
+          </Flex>
+        }
+        <p className="movie__descr">{this.croppingText(overview, 140)}</p>
         <Rate
           defaultValue={rating}
           count={10}

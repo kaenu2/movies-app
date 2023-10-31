@@ -23,7 +23,7 @@ export default class MovieList extends Component<IProps> {
               genre_ids: genreList,
             } = movie;
             const indexRated = ratedItems.findIndex((item) => item.id === id);
-            const rating = ratedItems[indexRated] ? ratedItems[indexRated].rating : 0;
+            const rating = ratedItems[indexRated] ? ratedItems[indexRated].value : 0;
             return (
               <MovieItem
                 key={id}

@@ -9,6 +9,7 @@ import StyleSettingsAntd from './StyleSettingsAntd';
 import SearchInput from './SearchInput';
 import NetworkError from './NetworkError';
 import AverRating from './AverRating';
+import ErrorBoundaries from './ErrorBoundaries';
 
 export {
   App,
@@ -22,4 +23,5 @@ export {
   SearchInput,
   NetworkError,
   AverRating,
+  ErrorBoundaries,
 };

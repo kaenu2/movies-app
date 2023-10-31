@@ -4,14 +4,15 @@
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
   grid-template-columns: 183px 1fr;
   column-gap: 15px;
+  height: 281px;
   grid-template-areas:
           'img top top'
           'img date date'
           'img genres genres'
           'img descr descr'
           'img rate rate';
-  @media (max-width: 600px) {
-    grid-template-columns: 60px repeat(2, 1fr);
+  @media (max-width: 1130px) {
+    grid-template-columns: 100px repeat(2, 1fr);
     grid-template-rows:  auto;
     padding: 6px 10px;
     grid-template-areas:
@@ -21,13 +22,17 @@
           'descr descr descr'
           'rate rate rate';
   }
+  @media (max-width: 500px) {
+    height: auto;
+  }
   &__img {
     grid-row: 1/ -1;
     width: 183px;
-    height: 100%;
-    @media (max-width: 600px) {
-      width: 60px;
-      grid-row: 1/ 4;
+    height: 281px;
+    @media (max-width: 1130px) {
+      width: 100px;
+      height: 150px;
+      grid-row: 1 / 4;
     }
   }
   &__top{
@@ -44,16 +49,27 @@
     grid-area: genres;
     padding-right: 10px;
     margin-bottom: 10px;
+    gap: 10px;
   }
   &__descr{
     grid-area: descr;
     padding-right: 10px;
     margin-bottom: 10px;
+    min-height: 60px;
+    @media (max-width: 1130px) {
+      margin-top: 10px;
+    }
   }
   &__rate{
     grid-area: rate;
     padding-right: 10px;
     padding-bottom: 12px;
+    @media (max-width: 1130px) {
+      justify-self: flex-end;
+    }
+    @media (max-width: 400px) {
+      font-size: 18px;
+    }
   }
   &__name {
     font-size: 20px;

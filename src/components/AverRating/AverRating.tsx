@@ -5,17 +5,17 @@ import './AverRating.scss';
 
 export default class AverRating extends Component<{ popularity: number }> {
   onUpdateColor(value: number): string {
-    if (value < 3) return '#E90000';
-    if (value < 5) return '#E97E00';
-    if (value < 7) return '#E9D100';
-    return '#66E900';
+    if (value < 3) return 'red';
+    if (value < 5) return 'orange';
+    if (value < 7) return 'green';
+    return 'yellow';
   }
 
   render() {
     const { popularity } = this.props;
     return (
-      <div className="aver-rating" style={{ borderColor: this.onUpdateColor(popularity) }}>
-        <Flex align="center" justify="center" style={{ width: '100%', height: '100%' }}>
+      <div className={`aver-rating ${this.onUpdateColor(popularity)}`}>
+        <Flex align="center" justify="center" className="aver-rating__container">
           <span className="aver-rating__value">{popularity.toFixed(1)}</span>
         </Flex>
       </div>
