@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Alert } from 'antd';
 
-import { AlertError, Loading, MovieList, PaginationParent } from '../../components';
+import { ParentAlert, Loading, MovieList, PaginationParent } from '../../components';
 
 import { IProps, IState } from './type';
 
@@ -12,11 +11,14 @@ export default class RatedPage extends Component<IProps, IState> {
 
     const loadingRender = isLoading ? <Loading /> : null;
     const errorRender = isError ? (
-      <AlertError message="Failed to contact the server, check if VPN is enabled, or try again later." />
+      <ParentAlert
+        message="Failed to contact the server, check if VPN is enabled, or try again later."
+        type={'error'}
+      />
     ) : null;
     const errorNotFoundRender =
       !items.length && !isError && !isLoading ? (
-        <Alert message="Nothing found!" description="You haven't rated the movie yet." type="info" showIcon />
+        <ParentAlert title="Nothing found!" message="You haven't rated the movie yet." type="info" />
       ) : null;
     const contentRender = !(isLoading || isError) ? (
       <>

@@ -3,7 +3,7 @@ import MovieItem from './MovieItem';
 import MovieList from './MovieList';
 import Container from './Container';
 import Loading from './Loading';
-import AlertError from './AlertError';
+import ParentAlert from './ParentAlert';
 import PaginationParent from './PaginationParent';
 import StyleSettingsAntd from './StyleSettingsAntd';
 import SearchInput from './SearchInput';
@@ -17,7 +17,7 @@ export {
   MovieList,
   Container,
   Loading,
-  AlertError,
+  ParentAlert,
   PaginationParent,
   StyleSettingsAntd,
   SearchInput,

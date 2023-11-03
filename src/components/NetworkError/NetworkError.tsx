@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Alert } from 'antd';
 import { Offline } from 'react-detect-offline';
+
+import { ParentAlert } from '../index';
 
 export default class NetworkError extends Component {
   render() {
     return (
       <Offline>
-        <Alert message="Warning" description="This is a warning notice about copywriting." type="warning" showIcon />
+        <ParentAlert message="This is a warning notice about copywriting." type="warning" />
       </Offline>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { AlertError } from '../index';
+import { ParentAlert } from '../index';
 
 interface IState {
   hisError: boolean;
@@ -23,7 +23,7 @@ export default class ErrorBoundaries extends Component<IProps, IState> {
   render() {
     const { hisError } = this.state;
     if (hisError) {
-      return <AlertError message="Something went wrong" />;
+      return <ParentAlert message="Something went wrong" type={'error'} />;
     }
     return this.props.children;
   }

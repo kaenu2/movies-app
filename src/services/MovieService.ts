@@ -7,7 +7,7 @@ export default class MovieService {
 
   sessionId: string | null = null;
 
-  async getResource(url: string): Promise<IGetMoveList | ICreateSessionGuest | IGetRatedMoveList | any> {
+  async getResource(url: string): Promise<IGetMoveList | ICreateSessionGuest | IGetRatedMoveList | IGenreList | any> {
     try {
       const response: Response = await fetch(this._apiBase + url);
 

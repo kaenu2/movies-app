@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Alert } from 'antd';
 
-import { AlertError, Loading, MovieList, NetworkError, PaginationParent, SearchInput } from '../../components';
+import { ParentAlert, Loading, MovieList, NetworkError, PaginationParent, SearchInput } from '../../components';
 
 import { IProps } from './type';
 
@@ -23,11 +22,11 @@ export default class SearchPage extends Component<IProps> {
 
     const loadingRender = isLoading ? <Loading /> : null;
     const errorRender = isError ? (
-      <AlertError message="Failed to contact the server, check if VPN is enabled, or try again later." />
+      <ParentAlert message="Failed to contact the server, check if VPN is enabled, or try again later." type="error" />
     ) : null;
     const errorNotFoundRender =
       !totalResults && searchValue.length && !isError && !isLoading ? (
-        <Alert message="Nothing found!" description="Please try changing your search value." type="info" showIcon />
+        <ParentAlert message="Please try changing your search value." type="info" title="Not found" />
       ) : null;
     const contentRender = !(isLoading || isError) ? (
       <>
