@@ -54,11 +54,6 @@ export default class App extends Component<unknown, IState> {
           })
         )
         .catch(() => this.setState({ isErrorRated: false, isLoadingRated: false }));
-      this.setState({
-        allRatedList: JSON.parse(`${sessionStorage.getItem('rated-list')}`)
-          ? JSON.parse(`${sessionStorage.getItem('rated-list')}`)
-          : [],
-      });
     }
   }
 
@@ -73,7 +68,6 @@ export default class App extends Component<unknown, IState> {
         .getRatedList(this.state.countPageRated)
         .then(({ results, total_results: totalResultsRated, total_pages: totalPagesRated }) => {
           if (!results.length) {
-            sessionStorage.removeItem('rated-list');
             this.setState({ allRatedList: [] });
           }
           this.setState({
@@ -85,8 +79,9 @@ export default class App extends Component<unknown, IState> {
         })
         .catch(() => this.setState({ isErrorRated: false, isLoadingRated: false }));
     }
-    if (prevState !== this.state) {
+    if (this.movieService.getCookie('api_key') === null && this.state.allRatedList.length) {
       this.movieService.createGuestSession().catch(() => this.setState({ isErrorRated: true }));
+      this.setState({ allRatedList: [] });
     }
   }
 
@@ -122,7 +117,7 @@ export default class App extends Component<unknown, IState> {
 
   onAddRating = (id: number, value: number) => {
     const cookieValue = this.movieService.getCookie('api_key');
-    document.cookie = `api_key=${cookieValue}; max-age=50`;
+    document.cookie = `api_key=${cookieValue}; max-age=3000`;
     this.movieService
       .addRating(id, value)
       .then(() => {
@@ -142,7 +137,6 @@ export default class App extends Component<unknown, IState> {
             };
           }
         });
-        sessionStorage.setItem('rated-list', JSON.stringify(this.state.allRatedList));
       })
       .catch(() => {
         throw new Error('');

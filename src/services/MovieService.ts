@@ -53,7 +53,7 @@ export default class MovieService {
   async createGuestSession(): Promise<void> {
     if (this.getCookie('api_key') === null) {
       await this.getResource(`/authentication/guest_session/new?api_key=${this._apiKey}`).then((res) => {
-        document.cookie = `api_key=${res.guest_session_id}; max-age=50`;
+        document.cookie = `api_key=${res.guest_session_id}; max-age=3000`;
         this.sessionId = res.guest_session_id;
       });
     }
